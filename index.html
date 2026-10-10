@@ -93,7 +93,6 @@
   @keyframes bump { 50% { transform: scale(1.35); } }
   button.button { background: none; font-family: inherit; cursor: pointer; }
   .order .button + .button { margin-left: 10px; background: transparent; color: #fff; border-color: #fff; font-weight: 700; }
-  .product .price { color: #6c3f22; font-weight: 700; }
   .product .add { margin-top: 8px; padding: 6px 14px; border: 1.5px solid #6c3f22; border-radius: 999px; background: #fff; color: #6c3f22; font: inherit; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; cursor: pointer; }
   .product .add:hover, .product .add.done { background: #6c3f22; color: #fff; }
 
@@ -114,7 +113,7 @@
   .qty { grid-column: 1 / -1; display: flex; align-items: center; gap: 10px; }
   .qty .step { width: 28px; height: 28px; border: 1.5px solid #1d1511; border-radius: 50%; background: #fff; font-size: 16px; line-height: 1; cursor: pointer; }
   .qty .remove { margin-left: auto; border: 0; background: none; color: #b3261e; font: inherit; font-size: 13px; text-decoration: underline; cursor: pointer; }
-  .drawer-foot { padding: 16px 20px 20px; border-top: 1px solid #1d1511; background: #faf6f2; overflow-y: auto; max-height: 62vh; }
+  .drawer-foot { padding: 16px 20px 20px; border-top: 1px solid #1d1511; background: #fff; overflow-y: auto; max-height: 62vh; }
   .drawer-foot[hidden] { display: none; }
   .total { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 18px; font-weight: 800; }
   .field { display: block; margin-bottom: 10px; font-size: 13px; font-weight: 700; }
@@ -198,7 +197,6 @@
     <h2>Ready to order?</h2>
     <p>Just fill in your cravings! Tell us what you want, how much you need, and when you'd like it.</p>
     <a class="button" href="tel:+11234567890">Call us</a>
-    <button class="button" type="button" data-open-cart>View my cart</button>
     <p class="phone">(123) 456 7890</p>
   </div>
 </section>
@@ -235,10 +233,6 @@
     <div class="total"><span>Total</span><span id="cartTotal">0 DA</span></div>
     <label class="field">Name<input type="text" name="name" autocomplete="name" required></label>
     <label class="field">Phone number<input type="tel" name="phone" autocomplete="tel" inputmode="tel" required></label>
-    <div class="row2">
-      <label class="field">Date<input type="date" name="date" required></label>
-      <label class="field">Time<input type="time" name="time" required></label>
-    </div>
     <p class="form-error" id="formError" role="alert"></p>
     <button class="send" type="submit">Send order on WhatsApp</button>
   </form>
@@ -347,23 +341,15 @@
     setTimeout(function () { btn.classList.remove("done"); btn.textContent = "Add to cart"; }, 900);
   });
 
-  function pad(n) { return (n < 10 ? "0" : "") + n; }
-  var now = new Date();
-  var today = now.getFullYear() + "-" + pad(now.getMonth() + 1) + "-" + pad(now.getDate());
-  form.elements.date.min = today;
-
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     var f = form.elements;
-    var name = f.name.value.trim(), phone = f.phone.value.trim(), date = f.date.value, time = f.time.value;
+    var name = f.name.value.trim(), phone = f.phone.value.trim();
     var digits = phone.replace(/\D/g, "");
     var err = "";
     if (!Object.keys(cart).length) err = "Your cart is empty.";
     else if (!name) err = "Please enter your name.";
     else if (digits.length < 8 || digits.length > 15) err = "Please enter a valid phone number.";
-    else if (!date) err = "Please choose a date.";
-    else if (date < today) err = "The date can't be in the past.";
-    else if (!time) err = "Please choose a time.";
     errEl.textContent = err;
     if (err) return;
 
@@ -375,8 +361,7 @@
     });
     var msg = "Hello Fresh Bakery! I'd like to place an order:\n\n" +
       lines.join("\n") + "\n\nTotal: " + money(total) + "\n\n" +
-      "Name: " + name + "\nPhone: " + phone + "\n" +
-      "Wanted on: " + date.split("-").reverse().join("/") + " at " + time;
+      "Name: " + name + "\nPhone: " + phone;
     var url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg);
     var w = window.open(url, "_blank");
     if (w) { w.opener = null; } else { window.location.href = url; }
