@@ -82,13 +82,60 @@
     .social { order: 1; margin-top: 0; }
     .wrap { width: calc(100% - 32px); }
     .hero h1 { font-size: 58px; }  }
+
+  /* Panier */
+  .topbar .wrap { display: flex; justify-content: flex-end; align-items: center; gap: 20px; text-align: right; }
+  .cart-btn { position: relative; display: flex; padding: 4px; border: 0; background: none; color: #1d1511; cursor: pointer; }
+  .cart-btn svg { width: 24px; height: 24px; }
+  .cart-count { position: absolute; top: -4px; right: -6px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 999px; background: #6c3f22; color: #fff; font-size: 11px; font-weight: 700; line-height: 18px; text-align: center; }
+  .cart-count[hidden] { display: none; }
+  .cart-count.bump { animation: bump .3s; }
+  @keyframes bump { 50% { transform: scale(1.35); } }
+  button.button { background: none; font-family: inherit; cursor: pointer; }
+  .order .button + .button { margin-left: 10px; background: transparent; color: #fff; border-color: #fff; font-weight: 700; }
+  .product .price { color: #6c3f22; font-weight: 700; }
+  .product .add { margin-top: 8px; padding: 6px 14px; border: 1.5px solid #6c3f22; border-radius: 999px; background: #fff; color: #6c3f22; font: inherit; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; cursor: pointer; }
+  .product .add:hover, .product .add.done { background: #6c3f22; color: #fff; }
+
+  .overlay { position: fixed; inset: 0; z-index: 20; background: rgba(0,0,0,.45); opacity: 0; pointer-events: none; transition: opacity .25s; }
+  .overlay.open { opacity: 1; pointer-events: auto; }
+  .drawer { position: fixed; top: 0; right: 0; bottom: 0; z-index: 21; display: flex; flex-direction: column; width: min(420px, 100%); background: #fff; box-shadow: -8px 0 30px rgba(0,0,0,.15); transform: translateX(100%); visibility: hidden; transition: transform .3s, visibility .3s; }
+  .drawer.open { transform: none; visibility: visible; }
+  .drawer-head { display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; border-bottom: 1px solid #1d1511; }
+  .drawer-head h2 { font-size: 24px; letter-spacing: -0.03em; }
+  .drawer .close { border: 0; background: none; font-size: 30px; line-height: 1; cursor: pointer; color: #1d1511; }
+  .drawer-body { flex: 1; overflow-y: auto; padding: 4px 20px; }
+  .cart-empty { padding: 40px 0; text-align: center; color: #6a5a4f; }
+  .cart-list { margin: 0; padding: 0; list-style: none; }
+  .cart-item { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; padding: 12px 0; border-bottom: 1px solid #e8dfd8; }
+  .cart-item .n { font-size: 15px; font-weight: 700; }
+  .cart-item .p { font-size: 13px; color: #6a5a4f; }
+  .cart-item .line-total { font-size: 15px; font-weight: 700; text-align: right; }
+  .qty { grid-column: 1 / -1; display: flex; align-items: center; gap: 10px; }
+  .qty .step { width: 28px; height: 28px; border: 1.5px solid #1d1511; border-radius: 50%; background: #fff; font-size: 16px; line-height: 1; cursor: pointer; }
+  .qty .remove { margin-left: auto; border: 0; background: none; color: #b3261e; font: inherit; font-size: 13px; text-decoration: underline; cursor: pointer; }
+  .drawer-foot { padding: 16px 20px 20px; border-top: 1px solid #1d1511; background: #faf6f2; overflow-y: auto; max-height: 62vh; }
+  .drawer-foot[hidden] { display: none; }
+  .total { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 18px; font-weight: 800; }
+  .field { display: block; margin-bottom: 10px; font-size: 13px; font-weight: 700; }
+  .field input { display: block; width: 100%; margin-top: 4px; padding: 10px 12px; border: 1px solid #bba99c; border-radius: 8px; background: #fff; font: inherit; font-size: 16px; font-weight: 400; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .form-error { min-height: 18px; margin-bottom: 8px; color: #b3261e; font-size: 13px; }
+  .send { width: 100%; padding: 14px; border: 0; border-radius: 999px; background: #25d366; color: #06361a; font: inherit; font-size: 15px; font-weight: 800; cursor: pointer; }
+  body.lock { overflow: hidden; }
 </style>
 </head>
 <body id="top">
 
 <!-- Barre fixe en haut : reste visible quand on descend, "Home" ramène à l'accueil -->
 <header class="topbar">
-  <div class="wrap"><a href="#top">Home</a></div>
+  <div class="wrap">
+    <a href="#top">Home</a>
+    <button class="cart-btn" id="cartBtn" type="button" aria-label="Open cart" aria-haspopup="dialog">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2.2l2.1 10.2a1.5 1.5 0 0 0 1.5 1.2h8.4a1.5 1.5 0 0 0 1.5-1.1L20.5 8H6.1"/><circle cx="9.5" cy="19.5" r="1.4"/><circle cx="17" cy="19.5" r="1.4"/></svg>
+      <span class="cart-count" id="cartCount" hidden>0</span>
+    </button>
+  </div>
 </header>
 
 <!-- Accueil -->
@@ -114,10 +161,10 @@
   <h2>Breads</h2>
   <p class="tagline">Crusty, soft, and soulful</p>
   <div class="products">
-    <article class="product"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Sourdough"><div><h3>Sourdough</h3><p>$8.50</p></div></article>
-    <article class="product"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Baguette"><div><h3>Baguette</h3><p>$5.50</p></div></article>
-    <article class="product"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Wheat Loaf"><div><h3>Wheat Loaf</h3><p>$6.00</p></div></article>
-    <article class="product"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Brioche Loaf"><div><h3>Brioche Loaf</h3><p>$7.25</p></div></article>
+    <article class="product" data-id="sourdough" data-name="Sourdough" data-price="1150"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Sourdough"><div><h3>Sourdough</h3><p class="price">1 150 DA</p><button class="add" type="button">Add to cart</button></div></article>
+    <article class="product" data-id="baguette" data-name="Baguette" data-price="750"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Baguette"><div><h3>Baguette</h3><p class="price">750 DA</p><button class="add" type="button">Add to cart</button></div></article>
+    <article class="product" data-id="wheat-loaf" data-name="Wheat Loaf" data-price="800"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Wheat Loaf"><div><h3>Wheat Loaf</h3><p class="price">800 DA</p><button class="add" type="button">Add to cart</button></div></article>
+    <article class="product" data-id="brioche-loaf" data-name="Brioche Loaf" data-price="1000"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Brioche Loaf"><div><h3>Brioche Loaf</h3><p class="price">1 000 DA</p><button class="add" type="button">Add to cart</button></div></article>
   </div>
 </section>
 
@@ -126,10 +173,10 @@
   <h2>Cookies</h2>
   <p class="tagline">Buttery, chewy, and always oven-fresh</p>
   <div class="products">
-    <article class="product"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Chocolate Chip"><div><h3>Chocolate Chip</h3><p>$3.00</p></div></article>
-    <article class="product"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Chocolate Fudge"><div><h3>Chocolate Fudge</h3><p>$3.25</p></div></article>
-    <article class="product"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Oatmeal Raisin"><div><h3>Oatmeal Raisin</h3><p>$2.75</p></div></article>
-    <article class="product"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Cookie Box"><div><h3>Cookie Box</h3><p>$18</p></div></article>
+    <article class="product" data-id="chocolate-chip" data-name="Chocolate Chip" data-price="400"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Chocolate Chip"><div><h3>Chocolate Chip</h3><p class="price">400 DA</p><button class="add" type="button">Add to cart</button></div></article>
+    <article class="product" data-id="chocolate-fudge" data-name="Chocolate Fudge" data-price="450"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Chocolate Fudge"><div><h3>Chocolate Fudge</h3><p class="price">450 DA</p><button class="add" type="button">Add to cart</button></div></article>
+    <article class="product" data-id="oatmeal-raisin" data-name="Oatmeal Raisin" data-price="350"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Oatmeal Raisin"><div><h3>Oatmeal Raisin</h3><p class="price">350 DA</p><button class="add" type="button">Add to cart</button></div></article>
+    <article class="product" data-id="cookie-box" data-name="Cookie Box" data-price="2400"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Cookie Box"><div><h3>Cookie Box</h3><p class="price">2 400 DA</p><button class="add" type="button">Add to cart</button></div></article>
   </div>
 </section>
 
@@ -138,10 +185,10 @@
   <h2>Pastries</h2>
   <p class="tagline">Delicate layers, rich fillings, and a perfect golden finish</p>
   <div class="products">
-    <article class="product"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Butter Croissant"><div><h3>Butter Croissant</h3><p>$4.25</p></div></article>
-    <article class="product"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Fruit Danish"><div><h3>Fruit Danish</h3><p>$5.00</p></div></article>
-    <article class="product"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Cinnamon Swirl"><div><h3>Cinnamon Swirl</h3><p>$4.75</p></div></article>
-    <article class="product"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Pain Au Chocolat"><div><h3>Pain Au Chocolat</h3><p>$5.25</p></div></article>
+    <article class="product" data-id="butter-croissant" data-name="Butter Croissant" data-price="550"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Butter Croissant"><div><h3>Butter Croissant</h3><p class="price">550 DA</p><button class="add" type="button">Add to cart</button></div></article>
+    <article class="product" data-id="fruit-danish" data-name="Fruit Danish" data-price="650"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Fruit Danish"><div><h3>Fruit Danish</h3><p class="price">650 DA</p><button class="add" type="button">Add to cart</button></div></article>
+    <article class="product" data-id="cinnamon-swirl" data-name="Cinnamon Swirl" data-price="650"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Cinnamon Swirl"><div><h3>Cinnamon Swirl</h3><p class="price">650 DA</p><button class="add" type="button">Add to cart</button></div></article>
+    <article class="product" data-id="pain-au-chocolat" data-name="Pain Au Chocolat" data-price="700"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Pain Au Chocolat"><div><h3>Pain Au Chocolat</h3><p class="price">700 DA</p><button class="add" type="button">Add to cart</button></div></article>
   </div>
 </section>
 
@@ -151,6 +198,7 @@
     <h2>Ready to order?</h2>
     <p>Just fill in your cravings! Tell us what you want, how much you need, and when you'd like it.</p>
     <a class="button" href="tel:+11234567890">Call us</a>
+    <button class="button" type="button" data-open-cart>View my cart</button>
     <p class="phone">(123) 456 7890</p>
   </div>
 </section>
@@ -173,5 +221,169 @@
   </div>
 </footer>
 
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" aria-hidden="true">
+  <div class="drawer-head">
+    <h2 id="drawerTitle">Your cart</h2>
+    <button class="close" id="closeCart" type="button" aria-label="Close cart">&times;</button>
+  </div>
+  <div class="drawer-body">
+    <p class="cart-empty" id="cartEmpty">Your cart is empty. Add something fresh from the menu!</p>
+    <ul class="cart-list" id="cartList"></ul>
+  </div>
+  <form class="drawer-foot" id="orderForm" novalidate hidden>
+    <div class="total"><span>Total</span><span id="cartTotal">0 DA</span></div>
+    <label class="field">Name<input type="text" name="name" autocomplete="name" required></label>
+    <label class="field">Phone number<input type="tel" name="phone" autocomplete="tel" inputmode="tel" required></label>
+    <div class="row2">
+      <label class="field">Date<input type="date" name="date" required></label>
+      <label class="field">Time<input type="time" name="time" required></label>
+    </div>
+    <p class="form-error" id="formError" role="alert"></p>
+    <button class="send" type="submit">Send order on WhatsApp</button>
+  </form>
+</aside>
+
+<script>
+(function () {
+  "use strict";
+  // Numéro WhatsApp qui reçoit les commandes : format international, sans "+" ni espaces.
+  // Numéro provisoire : à remplacer par le vrai numéro.
+  var WHATSAPP_NUMBER = "11234567890";
+  var STORE_KEY = "freshbakery-cart-v1";
+
+  var $ = function (id) { return document.getElementById(id); };
+  var drawer = $("drawer"), overlay = $("overlay"), list = $("cartList"), emptyMsg = $("cartEmpty");
+  var form = $("orderForm"), badge = $("cartCount"), totalEl = $("cartTotal"), errEl = $("formError");
+  var cartBtn = $("cartBtn"), lastFocus = null;
+
+  var catalog = {};
+  document.querySelectorAll(".product[data-id]").forEach(function (el) {
+    catalog[el.dataset.id] = { name: el.dataset.name, price: Number(el.dataset.price) };
+  });
+
+  var cart = {};
+  try {
+    var saved = JSON.parse(localStorage.getItem(STORE_KEY) || "{}");
+    Object.keys(saved).forEach(function (id) {
+      var q = parseInt(saved[id], 10);
+      if (catalog[id] && q > 0) cart[id] = Math.min(q, 99);
+    });
+  } catch (e) { cart = {}; }
+
+  function money(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " DA"; }
+  function mk(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text !== undefined) e.textContent = text;
+    return e;
+  }
+  function stepBtn(label, aria, cls, fn) {
+    var b = mk("button", cls, label);
+    b.type = "button"; b.setAttribute("aria-label", aria);
+    b.addEventListener("click", fn);
+    return b;
+  }
+
+  function render() {
+    var ids = Object.keys(cart), count = 0, total = 0;
+    list.textContent = "";
+    ids.forEach(function (id) {
+      var item = catalog[id], q = cart[id];
+      count += q; total += item.price * q;
+      var li = mk("li", "cart-item");
+      var info = mk("div");
+      info.append(mk("div", "n", item.name), mk("div", "p", money(item.price) + " each"));
+      var qty = mk("div", "qty");
+      qty.append(
+        stepBtn("\u2212", "Remove one " + item.name, "step", function () { change(id, -1); }),
+        mk("span", "", String(q)),
+        stepBtn("+", "Add one " + item.name, "step", function () { change(id, 1); }),
+        stepBtn("Remove", "Remove " + item.name + " from cart", "remove", function () { delete cart[id]; update(); })
+      );
+      li.append(info, mk("div", "line-total", money(item.price * q)), qty);
+      list.append(li);
+    });
+    emptyMsg.hidden = ids.length > 0;
+    form.hidden = ids.length === 0;
+    totalEl.textContent = money(total);
+    badge.textContent = count;
+    badge.hidden = count === 0;
+  }
+  function update() { try { localStorage.setItem(STORE_KEY, JSON.stringify(cart)); } catch (e) {} render(); }
+  function change(id, d) {
+    var q = (cart[id] || 0) + d;
+    if (q <= 0) delete cart[id]; else cart[id] = Math.min(q, 99);
+    update();
+  }
+
+  function openCart() {
+    lastFocus = document.activeElement;
+    drawer.classList.add("open"); overlay.classList.add("open");
+    drawer.setAttribute("aria-hidden", "false");
+    document.body.classList.add("lock");
+    $("closeCart").focus();
+  }
+  function closeCart() {
+    drawer.classList.remove("open"); overlay.classList.remove("open");
+    drawer.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("lock");
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  cartBtn.addEventListener("click", openCart);
+  $("closeCart").addEventListener("click", closeCart);
+  overlay.addEventListener("click", closeCart);
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeCart(); });
+  document.querySelectorAll("[data-open-cart]").forEach(function (b) { b.addEventListener("click", openCart); });
+
+  document.addEventListener("click", function (e) {
+    var btn = e.target.closest(".add");
+    if (!btn) return;
+    var id = btn.closest(".product").dataset.id;
+    cart[id] = Math.min((cart[id] || 0) + 1, 99);
+    update();
+    badge.classList.remove("bump"); void badge.offsetWidth; badge.classList.add("bump");
+    btn.classList.add("done"); btn.textContent = "Added \u2713";
+    setTimeout(function () { btn.classList.remove("done"); btn.textContent = "Add to cart"; }, 900);
+  });
+
+  function pad(n) { return (n < 10 ? "0" : "") + n; }
+  var now = new Date();
+  var today = now.getFullYear() + "-" + pad(now.getMonth() + 1) + "-" + pad(now.getDate());
+  form.elements.date.min = today;
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var f = form.elements;
+    var name = f.name.value.trim(), phone = f.phone.value.trim(), date = f.date.value, time = f.time.value;
+    var digits = phone.replace(/\D/g, "");
+    var err = "";
+    if (!Object.keys(cart).length) err = "Your cart is empty.";
+    else if (!name) err = "Please enter your name.";
+    else if (digits.length < 8 || digits.length > 15) err = "Please enter a valid phone number.";
+    else if (!date) err = "Please choose a date.";
+    else if (date < today) err = "The date can't be in the past.";
+    else if (!time) err = "Please choose a time.";
+    errEl.textContent = err;
+    if (err) return;
+
+    var lines = [], total = 0;
+    Object.keys(cart).forEach(function (id) {
+      var item = catalog[id], q = cart[id];
+      total += item.price * q;
+      lines.push("- " + q + " x " + item.name + " : " + money(item.price * q));
+    });
+    var msg = "Hello Fresh Bakery! I'd like to place an order:\n\n" +
+      lines.join("\n") + "\n\nTotal: " + money(total) + "\n\n" +
+      "Name: " + name + "\nPhone: " + phone + "\n" +
+      "Wanted on: " + date.split("-").reverse().join("/") + " at " + time;
+    var url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg);
+    var w = window.open(url, "_blank");
+    if (w) { w.opener = null; } else { window.location.href = url; }
+  });
+
+  render();
+})();
+</script>
 </body>
 </html>
