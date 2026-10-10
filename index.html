@@ -63,19 +63,21 @@
   /* Deux mises en page seulement : PC (au-dessus de 1000px) et mobile (1000px et moins) */
   @media (max-width: 1000px) {
     .products { grid-template-columns: 1fr; }
-    .hero { min-height: 440px; }
+    .hero { min-height: 520px; }
     .welcome img, .footer img { height: 150px; }
     .footer-info { flex-direction: column; }
     .brand-block { display: contents; }
     .footer-info > div:not(.brand-block) { width: auto; }
-    .social { order: 1; margin-top: 0; }  }
+    .social { order: 1; margin-top: 0; }
+    .wrap { width: calc(100% - 32px); }
+    .hero h1 { font-size: 56px; }  }
 </style>
 </head>
 <body>
 
 <!-- Accueil -->
 <section class="hero">
-  <img src="images/hero.jpg" alt="Golden croissants on a wooden tray">
+  <img src="https://i.ibb.co/VYWVDWwB/Image-Chat-GPT-28-sept-2026-a-12-46-08-png.webp" alt="Golden croissants on a wooden tray">
   <a class="wrap brand" href="#">Fresh Bakery</a>
   <div class="wrap hero-text">
     <h1>Oven-Fresh.<span>Online. On time.</span></h1>
@@ -88,7 +90,7 @@
 <section class="wrap welcome">
   <h2>Welcome to our online bakery!</h2>
   <p>Every bread, cookie, and pastry is baked to order and arrives right when you need them.</p>
-  <img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Golden butter croissants">
+  <img src="https://i.ibb.co/VYWVDWwB/Image-Chat-GPT-28-sept-2026-a-12-46-08-png.webp" alt="Golden butter croissants">
 </section>
 
 <!-- Pains -->
@@ -138,7 +140,7 @@
 
 <!-- Pied de page -->
 <footer class="wrap footer">
-  <img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Baguette and country loaves">
+  <img src="https://i.ibb.co/VYWVDWwB/Image-Chat-GPT-28-sept-2026-a-12-46-08-png.webp" alt="Baguette and country loaves">
   <div class="footer-info">
     <div class="brand-block">
       <strong class="name">Fresh Bakery</strong>
