@@ -102,7 +102,7 @@
 
   .overlay { position: fixed; inset: 0; z-index: 20; background: rgba(20,12,8,.5); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: opacity .25s; }
   .overlay.open { opacity: 1; pointer-events: auto; }
-  .drawer { position: fixed; top: 50%; left: 50%; z-index: 21; display: flex; flex-direction: column; width: min(420px, 100% - 32px); height: min(600px, 88vh); overflow: hidden; border-radius: 22px; background: #fff; box-shadow: 0 24px 70px rgba(0,0,0,.28); opacity: 0; transform: translate(-50%, -46%) scale(.96); visibility: hidden; transition: opacity .22s, transform .22s cubic-bezier(.2,.8,.2,1), visibility .22s; }
+  .drawer { position: fixed; top: 50%; left: 50%; z-index: 21; display: flex; flex-direction: column; width: min(420px, 100% - 32px); height: min(612px, 83vh); overflow: hidden; border-radius: 22px; background: #fff; box-shadow: 0 24px 70px rgba(0,0,0,.28); opacity: 0; transform: translate(-50%, -46%) scale(.96); visibility: hidden; transition: opacity .22s, transform .22s cubic-bezier(.2,.8,.2,1), visibility .22s; }
   .drawer.open { opacity: 1; transform: translate(-50%, -50%); visibility: visible; }
   .drawer-head { display: flex; justify-content: space-between; align-items: center; padding: 20px 22px 12px; }
   .drawer-head h2 { font-size: 22px; letter-spacing: -0.03em; }
@@ -130,7 +130,7 @@
   .total span:last-child { color: #1d1511; font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
   .field { display: block; margin-bottom: 10px; }
   @media (max-height: 700px) {
-    .drawer { height: 77vh; }
+    .drawer { height: 86vh; }
     .drawer-head { padding: 12px 22px 6px; }
     .drawer-foot { padding: 10px 22px 12px; }
     .total { margin-bottom: 8px; }
@@ -142,7 +142,7 @@
   .inp svg { position: absolute; top: 50%; left: 15px; width: 18px; height: 18px; transform: translateY(-50%); color: #1d1511; pointer-events: none; }
   .field input { display: block; width: 100%; padding: 14px 16px 14px 44px; border: 1.5px solid #1d1511; border-radius: 14px; background: #fff; color: #1d1511; font: inherit; font-size: 16px; font-weight: 400; transition: box-shadow .15s; }
   .field input::placeholder { color: #9a9a9a; }
-  .field input:focus { outline: 0; box-shadow: 0 0 0 4px rgba(29,21,17,.12); }
+  .field input:focus { outline: 0; border-color: #1d1511; box-shadow: 0 0 0 4px rgba(29,21,17,.12); }
   .form-error { min-height: 18px; margin-bottom: 6px; color: #b3261e; font-size: 13px; }
   .send { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 16px; border: 0; border-radius: 999px; background: #25d366; color: #06361a; font: inherit; font-size: 15px; font-weight: 800; box-shadow: 0 8px 20px rgba(37,211,102,.35); cursor: pointer; transition: transform .15s, box-shadow .15s; }
   .send svg { width: 22px; height: 22px; }
@@ -153,9 +153,9 @@
   .field { margin-bottom: 6px; }
   .field[hidden] { display: none; }
   .field > span:first-child { font-size: 10.5px; line-height: 1.2; }
-  .inp { margin-top: 2px; }
+  .inp { margin-top: 5px; }
   .inp svg { left: 11px; width: 15px; height: 15px; }
-  .field input { padding: 6px 12px 6px 36px; border-radius: 10px; font-size: 14px; }
+  .field input { border-color: #d9d3cd; padding: 6px 12px 6px 36px; border-radius: 10px; font-size: 16px; }
   .field.plain input { padding-left: 12px; }
   .form-error { min-height: 16px; margin-bottom: 4px; font-size: 12px; }
   .send { padding: 10px; font-size: 14px; }
