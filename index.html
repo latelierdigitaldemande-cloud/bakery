@@ -45,7 +45,7 @@
   .menu .tagline { margin-top: 10px; max-width: 34ch; color: #9c5a28; font-size: 30px; line-height: 1.35; }
   .products { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 20px; margin-top: 28px; }
   .product { display: grid; grid-template-columns: 11fr 9fr; overflow: hidden; border-top: 1px solid #1d1511; border-bottom: 1px solid #1d1511; }
-  /* La photo garde toujours le même format (185 x 126) : la carte s'agrandit avec l'écran, mais une photo haute est recadrée */
+
   .product img { width: 100%; height: auto; aspect-ratio: 185 / 126; object-fit: cover; }
   .product div { padding: 12px 0 12px 14px; }
   .product h3 { font-size: 15px; line-height: 1.25; }
@@ -64,7 +64,7 @@
   .footer-info strong.name { font-size: 2.4rem; line-height: 1; text-transform: uppercase; letter-spacing: -0.03em; }
   .footer-info p { font-size: 14px; color: #1d1511; }
   .social { display: flex; gap: 12px; margin-top: 28px; }
-  /* Comme sur le modèle : le nom à gauche, Address et Email us en deux colonnes à droite */
+
   .brand-block { flex: 1 1 auto; }
   .footer-info > div:not(.brand-block) { flex: 0 0 auto; width: 240px; }
   .legal { background: #000; padding: 18px 0; }
@@ -74,7 +74,6 @@
   .social a { display: block; width: 22px; height: 22px; color: #1d1511; }
   .social svg { display: block; width: 100%; height: 100%; }
 
-  /* Deux mises en page seulement : PC (au-dessus de 1000px) et mobile (1000px et moins) */
   @media (max-width: 1000px) {
     .products { grid-template-columns: 1fr; }
     .hero { min-height: 540px; }
@@ -109,7 +108,7 @@
   .drawer-head h2 { font-size: 22px; letter-spacing: -0.03em; }
   .drawer .close { display: grid; place-items: center; width: 34px; height: 34px; border: 0; border-radius: 50%; background: #f2f0ee; color: #1d1511; font-size: 20px; line-height: 1; cursor: pointer; }
   .drawer .close:hover { background: #e6e2de; }
-  .drawer-body { flex: 1; overflow-y: auto; padding: 0 22px; }
+  .drawer-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 0 22px; overscroll-behavior: contain; }
   .cart-empty { padding: 40px 0 48px; text-align: center; color: #6b6b6b; }
   .cart-list { margin: 0; padding: 0; list-style: none; }
   .cart-item { display: grid; grid-template-columns: 56px 1fr auto; gap: 0 14px; align-items: start; padding: 14px 0; border-bottom: 1px solid #eee; }
@@ -125,11 +124,19 @@
   .stepper span { min-width: 22px; text-align: center; font-size: 14px; font-weight: 700; }
   .qty .remove { border: 0; background: none; color: #8a8a8a; font: inherit; font-size: 12px; text-decoration: underline; cursor: pointer; }
   .qty .remove:hover { color: #b3261e; }
-  .drawer-foot { padding: 16px 22px 22px; border-top: 1px solid #eee; background: #fff; overflow-y: auto; max-height: 55vh; }
+  .drawer-foot { flex: 0 0 auto; padding: 14px 22px 18px; border-top: 1px solid #eee; background: #fff; box-shadow: 0 -8px 16px rgba(0,0,0,.05); }
   .drawer-foot[hidden] { display: none; }
   .total { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; color: #6b6b6b; font-size: 15px; }
   .total span:last-child { color: #1d1511; font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
-  .field { display: block; margin-bottom: 12px; }
+  .field { display: block; margin-bottom: 10px; }
+  @media (max-height: 700px) {
+    .drawer { max-height: 96vh; }
+    .drawer-head { padding: 12px 22px 6px; }
+    .drawer-foot { padding: 10px 22px 12px; }
+    .total { margin-bottom: 8px; }
+    .field input { padding-top: 10px; padding-bottom: 10px; }
+    .send { padding: 12px; }
+  }
   .field > span:first-child { display: block; font-size: 12px; font-weight: 700; letter-spacing: .02em; }
   .inp { position: relative; display: block; margin-top: 6px; }
   .inp svg { position: absolute; top: 50%; left: 15px; width: 18px; height: 18px; transform: translateY(-50%); color: #1d1511; pointer-events: none; }
@@ -145,7 +152,6 @@
 </head>
 <body id="top">
 
-<!-- Barre fixe en haut : reste visible quand on descend, "Home" ramène à l'accueil -->
 <header class="topbar">
   <div class="wrap">
     <a class="logo" href="#top">Fresh Bakery</a>
@@ -179,10 +185,10 @@
   <h2>Breads</h2>
   <p class="tagline">Crusty, soft, and soulful</p>
   <div class="products">
-    <article class="product" data-id="sourdough" data-name="Sourdough" data-price="1150"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Sourdough"><div><h3>Sourdough</h3><p class="price">1 150 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
-    <article class="product" data-id="baguette" data-name="Baguette" data-price="750"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Baguette"><div><h3>Baguette</h3><p class="price">750 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
-    <article class="product" data-id="wheat-loaf" data-name="Wheat Loaf" data-price="800"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Wheat Loaf"><div><h3>Wheat Loaf</h3><p class="price">800 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
-    <article class="product" data-id="brioche-loaf" data-name="Brioche Loaf" data-price="1000"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Brioche Loaf"><div><h3>Brioche Loaf</h3><p class="price">1 000 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
+    <article class="product" data-id="sourdough" data-name="Sourdough" data-price="1150"><img src="https://i.ibb.co/Kcq8VFdK/Roul-la-cannelle-glac-aux-noisettes.png" alt="Sourdough"><div><h3>Sourdough</h3><p class="price">1 150 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
+    <article class="product" data-id="baguette" data-name="Baguette" data-price="750"><img src="https://i.ibb.co/Kcq8VFdK/Roul-la-cannelle-glac-aux-noisettes.png" alt="Baguette"><div><h3>Baguette</h3><p class="price">750 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
+    <article class="product" data-id="wheat-loaf" data-name="Wheat Loaf" data-price="800"><img src="https://i.ibb.co/Kcq8VFdK/Roul-la-cannelle-glac-aux-noisettes.png" alt="Wheat Loaf"><div><h3>Wheat Loaf</h3><p class="price">800 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
+    <article class="product" data-id="brioche-loaf" data-name="Brioche Loaf" data-price="1000"><img src="https://i.ibb.co/Kcq8VFdK/Roul-la-cannelle-glac-aux-noisettes.png" alt="Brioche Loaf"><div><h3>Brioche Loaf</h3><p class="price">1 000 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
   </div>
 </section>
 
@@ -191,10 +197,10 @@
   <h2>Cookies</h2>
   <p class="tagline">Buttery, chewy, and always oven-fresh</p>
   <div class="products">
-    <article class="product" data-id="chocolate-chip" data-name="Chocolate Chip" data-price="400"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Chocolate Chip"><div><h3>Chocolate Chip</h3><p class="price">400 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
-    <article class="product" data-id="chocolate-fudge" data-name="Chocolate Fudge" data-price="450"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Chocolate Fudge"><div><h3>Chocolate Fudge</h3><p class="price">450 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
-    <article class="product" data-id="oatmeal-raisin" data-name="Oatmeal Raisin" data-price="350"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Oatmeal Raisin"><div><h3>Oatmeal Raisin</h3><p class="price">350 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
-    <article class="product" data-id="cookie-box" data-name="Cookie Box" data-price="2400"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Cookie Box"><div><h3>Cookie Box</h3><p class="price">2 400 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
+    <article class="product" data-id="chocolate-chip" data-name="Chocolate Chip" data-price="400"><img src="https://i.ibb.co/Kcq8VFdK/Roul-la-cannelle-glac-aux-noisettes.png" alt="Chocolate Chip"><div><h3>Chocolate Chip</h3><p class="price">400 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
+    <article class="product" data-id="chocolate-fudge" data-name="Chocolate Fudge" data-price="450"><img src="https://i.ibb.co/Kcq8VFdK/Roul-la-cannelle-glac-aux-noisettes.png" alt="Chocolate Fudge"><div><h3>Chocolate Fudge</h3><p class="price">450 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
+    <article class="product" data-id="oatmeal-raisin" data-name="Oatmeal Raisin" data-price="350"><img src="https://i.ibb.co/Kcq8VFdK/Roul-la-cannelle-glac-aux-noisettes.png" alt="Oatmeal Raisin"><div><h3>Oatmeal Raisin</h3><p class="price">350 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
+    <article class="product" data-id="cookie-box" data-name="Cookie Box" data-price="2400"><img src="https://i.ibb.co/Kcq8VFdK/Roul-la-cannelle-glac-aux-noisettes.png" alt="Cookie Box"><div><h3>Cookie Box</h3><p class="price">2 400 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
   </div>
 </section>
 
@@ -203,10 +209,10 @@
   <h2>Pastries</h2>
   <p class="tagline">Delicate layers, rich fillings, and a perfect golden finish</p>
   <div class="products">
-    <article class="product" data-id="butter-croissant" data-name="Butter Croissant" data-price="550"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Butter Croissant"><div><h3>Butter Croissant</h3><p class="price">550 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
-    <article class="product" data-id="fruit-danish" data-name="Fruit Danish" data-price="650"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Fruit Danish"><div><h3>Fruit Danish</h3><p class="price">650 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
-    <article class="product" data-id="cinnamon-swirl" data-name="Cinnamon Swirl" data-price="650"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Cinnamon Swirl"><div><h3>Cinnamon Swirl</h3><p class="price">650 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
-    <article class="product" data-id="pain-au-chocolat" data-name="Pain Au Chocolat" data-price="700"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Pain Au Chocolat"><div><h3>Pain Au Chocolat</h3><p class="price">700 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
+    <article class="product" data-id="butter-croissant" data-name="Butter Croissant" data-price="550"><img src="https://i.ibb.co/Kcq8VFdK/Roul-la-cannelle-glac-aux-noisettes.png" alt="Butter Croissant"><div><h3>Butter Croissant</h3><p class="price">550 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
+    <article class="product" data-id="fruit-danish" data-name="Fruit Danish" data-price="650"><img src="https://i.ibb.co/Kcq8VFdK/Roul-la-cannelle-glac-aux-noisettes.png" alt="Fruit Danish"><div><h3>Fruit Danish</h3><p class="price">650 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
+    <article class="product" data-id="cinnamon-swirl" data-name="Cinnamon Swirl" data-price="650"><img src="https://i.ibb.co/Kcq8VFdK/Roul-la-cannelle-glac-aux-noisettes.png" alt="Cinnamon Swirl"><div><h3>Cinnamon Swirl</h3><p class="price">650 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
+    <article class="product" data-id="pain-au-chocolat" data-name="Pain Au Chocolat" data-price="700"><img src="https://i.ibb.co/Kcq8VFdK/Roul-la-cannelle-glac-aux-noisettes.png" alt="Pain Au Chocolat"><div><h3>Pain Au Chocolat</h3><p class="price">700 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
   </div>
 </section>
 
@@ -226,7 +232,7 @@
   <div class="footer-info">
     <div class="brand-block">
       <strong class="name">Fresh Bakery</strong>
-      <!-- Réseaux sociaux : remplacez les "#" par vos vrais liens -->
+      <!-- Réseaux sociaux -->
       <div class="social">
         <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="M13 20v-7h2.4l.4-3H13V8.3c0-.8.3-1.3 1.4-1.3H16V4.3c-.3 0-1.2-.1-2.2-.1C11.6 4.2 10 5.5 10 8v2H7.6v3H10v7z" fill="#fff"/></svg></a>
         <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg></a>
@@ -238,7 +244,7 @@
   </div>
 </footer>
 
-<!-- Barre légale : remplacez les "#" par vos vraies pages -->
+<!-- Barre légale -->
 <nav class="legal" aria-label="Legal">
   <div class="wrap">
     <a href="#">Terms &amp; Conditions</a>
@@ -268,8 +274,7 @@
 <script>
 (function () {
   "use strict";
-  // Numéro WhatsApp qui reçoit les commandes : format international, sans "+" ni espaces.
-  // Numéro provisoire : à remplacer par le vrai numéro.
+
   var WHATSAPP_NUMBER = "11234567890";
   var STORE_KEY = "freshbakery-cart-v1";
 
