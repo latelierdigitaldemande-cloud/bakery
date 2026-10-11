@@ -101,31 +101,45 @@
   .product .add { display: block; margin-top: 8px; padding: 0; border: 0; background: none; color: #1d1511; font: inherit; font-size: 15px; font-weight: 700; cursor: pointer; }
   .product .add:hover { text-decoration: underline; }
 
-  .overlay { position: fixed; inset: 0; z-index: 20; background: rgba(0,0,0,.45); opacity: 0; pointer-events: none; transition: opacity .25s; }
+  .overlay { position: fixed; inset: 0; z-index: 20; background: rgba(20,12,8,.5); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: opacity .25s; }
   .overlay.open { opacity: 1; pointer-events: auto; }
-  .drawer { position: fixed; top: 0; right: 0; bottom: 0; z-index: 21; display: flex; flex-direction: column; width: min(420px, 100%); background: #fff; box-shadow: -8px 0 30px rgba(0,0,0,.15); transform: translateX(100%); visibility: hidden; transition: transform .3s, visibility .3s; }
-  .drawer.open { transform: none; visibility: visible; }
-  .drawer-head { display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; border-bottom: 1px solid #1d1511; }
-  .drawer-head h2 { font-size: 24px; letter-spacing: -0.03em; }
-  .drawer .close { border: 0; background: none; font-size: 30px; line-height: 1; cursor: pointer; color: #1d1511; }
-  .drawer-body { flex: 1; overflow-y: auto; padding: 4px 20px; }
-  .cart-empty { padding: 40px 0; text-align: center; color: #6a5a4f; }
+  .drawer { position: fixed; top: 50%; left: 50%; z-index: 21; display: flex; flex-direction: column; width: min(420px, 100% - 32px); max-height: 88vh; overflow: hidden; border-radius: 22px; background: #fff; box-shadow: 0 24px 70px rgba(0,0,0,.28); opacity: 0; transform: translate(-50%, -46%) scale(.96); visibility: hidden; transition: opacity .22s, transform .22s cubic-bezier(.2,.8,.2,1), visibility .22s; }
+  .drawer.open { opacity: 1; transform: translate(-50%, -50%); visibility: visible; }
+  .drawer-head { display: flex; justify-content: space-between; align-items: center; padding: 20px 22px 12px; }
+  .drawer-head h2 { font-size: 22px; letter-spacing: -0.03em; }
+  .drawer .close { display: grid; place-items: center; width: 34px; height: 34px; border: 0; border-radius: 50%; background: #f2f0ee; color: #1d1511; font-size: 20px; line-height: 1; cursor: pointer; }
+  .drawer .close:hover { background: #e6e2de; }
+  .drawer-body { flex: 1; overflow-y: auto; padding: 0 22px; }
+  .cart-empty { padding: 40px 0 48px; text-align: center; color: #6b6b6b; }
   .cart-list { margin: 0; padding: 0; list-style: none; }
-  .cart-item { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; padding: 12px 0; border-bottom: 1px solid #e8dfd8; }
-  .cart-item .n { font-size: 15px; font-weight: 700; }
-  .cart-item .p { font-size: 13px; color: #6a5a4f; }
-  .cart-item .line-total { font-size: 15px; font-weight: 700; text-align: right; }
-  .qty { grid-column: 1 / -1; display: flex; align-items: center; gap: 10px; }
-  .qty .step { width: 28px; height: 28px; border: 1.5px solid #1d1511; border-radius: 50%; background: #fff; font-size: 16px; line-height: 1; cursor: pointer; }
-  .qty .remove { margin-left: auto; border: 0; background: none; color: #b3261e; font: inherit; font-size: 13px; text-decoration: underline; cursor: pointer; }
-  .drawer-foot { padding: 16px 20px 20px; border-top: 1px solid #1d1511; background: #fff; overflow-y: auto; max-height: 62vh; }
+  .cart-item { display: grid; grid-template-columns: 56px 1fr auto; gap: 0 14px; align-items: start; padding: 14px 0; border-bottom: 1px solid #eee; }
+  .cart-item:last-child { border-bottom: 0; }
+  .cart-item .thumb { width: 56px; height: 56px; border-radius: 12px; object-fit: cover; }
+  .cart-item .n { font-size: 15px; font-weight: 700; line-height: 1.25; }
+  .cart-item .p { margin-top: 2px; font-size: 13px; color: #6b6b6b; }
+  .cart-item .line-total { font-size: 15px; font-weight: 700; white-space: nowrap; }
+  .qty { display: flex; align-items: center; gap: 12px; margin-top: 8px; }
+  .stepper { display: inline-flex; align-items: center; border-radius: 999px; background: #f2f0ee; }
+  .stepper button { width: 30px; height: 30px; border: 0; border-radius: 50%; background: none; color: #1d1511; font-size: 16px; cursor: pointer; }
+  .stepper button:hover { background: #e6e2de; }
+  .stepper span { min-width: 22px; text-align: center; font-size: 14px; font-weight: 700; }
+  .qty .remove { border: 0; background: none; color: #8a8a8a; font: inherit; font-size: 12px; text-decoration: underline; cursor: pointer; }
+  .qty .remove:hover { color: #b3261e; }
+  .drawer-foot { padding: 16px 22px 22px; border-top: 1px solid #eee; background: #fff; overflow-y: auto; max-height: 55vh; }
   .drawer-foot[hidden] { display: none; }
-  .total { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 18px; font-weight: 800; }
-  .field { display: block; margin-bottom: 10px; font-size: 13px; font-weight: 700; }
-  .field input { display: block; width: 100%; margin-top: 4px; padding: 10px 12px; border: 1px solid #1d1511; border-radius: 8px; background: #fff; font: inherit; font-size: 16px; font-weight: 400; }
-  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .form-error { min-height: 18px; margin-bottom: 8px; color: #b3261e; font-size: 13px; }
-  .send { width: 100%; padding: 14px; border: 0; border-radius: 999px; background: #25d366; color: #06361a; font: inherit; font-size: 15px; font-weight: 800; cursor: pointer; }
+  .total { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; color: #6b6b6b; font-size: 15px; }
+  .total span:last-child { color: #1d1511; font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
+  .field { display: block; margin-bottom: 12px; }
+  .field > span:first-child { display: block; font-size: 12px; font-weight: 700; letter-spacing: .02em; }
+  .inp { position: relative; display: block; margin-top: 6px; }
+  .inp svg { position: absolute; top: 50%; left: 15px; width: 18px; height: 18px; transform: translateY(-50%); color: #1d1511; pointer-events: none; }
+  .field input { display: block; width: 100%; padding: 14px 16px 14px 44px; border: 1.5px solid #1d1511; border-radius: 14px; background: #fff; color: #1d1511; font: inherit; font-size: 16px; font-weight: 400; transition: box-shadow .15s; }
+  .field input::placeholder { color: #9a9a9a; }
+  .field input:focus { outline: 0; box-shadow: 0 0 0 4px rgba(29,21,17,.12); }
+  .form-error { min-height: 18px; margin-bottom: 6px; color: #b3261e; font-size: 13px; }
+  .send { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 16px; border: 0; border-radius: 999px; background: #25d366; color: #06361a; font: inherit; font-size: 15px; font-weight: 800; box-shadow: 0 8px 20px rgba(37,211,102,.35); cursor: pointer; transition: transform .15s, box-shadow .15s; }
+  .send svg { width: 22px; height: 22px; }
+  .send:hover { transform: translateY(-1px); box-shadow: 0 12px 24px rgba(37,211,102,.4); }
   body.lock { overflow: hidden; }
 </style>
 </head>
@@ -244,10 +258,10 @@
   </div>
   <form class="drawer-foot" id="orderForm" novalidate hidden>
     <div class="total"><span>Total</span><span id="cartTotal">0 DA</span></div>
-    <label class="field">Name<input type="text" name="name" autocomplete="name" required></label>
-    <label class="field">Phone number<input type="tel" name="phone" autocomplete="tel" inputmode="tel" required></label>
+    <label class="field"><span>Name</span><span class="inp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><input type="text" name="name" autocomplete="name" placeholder="Your name" required></span></label>
+    <label class="field"><span>Phone number</span><span class="inp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="Your phone number" required></span></label>
     <p class="form-error" id="formError" role="alert"></p>
-    <button class="send" type="submit">Send order on WhatsApp</button>
+    <button class="send" type="submit"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21l1.6-4.7A9 9 0 1 1 8 19.6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8.5c.3 2.7 3.3 5.7 6 6l1.2-1.3-2-1-1 .8c-1-.4-1.9-1.3-2.3-2.3l.8-1-1-2z" fill="currentColor"/></svg><span>Send order on WhatsApp</span></button>
   </form>
 </aside>
 
@@ -266,7 +280,7 @@
 
   var catalog = {};
   document.querySelectorAll(".product[data-id]").forEach(function (el) {
-    catalog[el.dataset.id] = { name: el.dataset.name, price: Number(el.dataset.price) };
+    catalog[el.dataset.id] = { name: el.dataset.name, price: Number(el.dataset.price), img: (el.querySelector("img") || {}).src || "" };
   });
 
   var cart = {};
@@ -299,16 +313,18 @@
       var item = catalog[id], q = cart[id];
       count += q; total += item.price * q;
       var li = mk("li", "cart-item");
+      var thumb = mk("img", "thumb"); thumb.src = item.img; thumb.alt = "";
       var info = mk("div");
-      info.append(mk("div", "n", item.name), mk("div", "p", money(item.price) + " each"));
-      var qty = mk("div", "qty");
-      qty.append(
-        stepBtn("\u2212", "Remove one " + item.name, "step", function () { change(id, -1); }),
+      var stepper = mk("div", "stepper");
+      stepper.append(
+        stepBtn("−", "Remove one " + item.name, "", function () { change(id, -1); }),
         mk("span", "", String(q)),
-        stepBtn("+", "Add one " + item.name, "step", function () { change(id, 1); }),
-        stepBtn("Remove", "Remove " + item.name + " from cart", "remove", function () { delete cart[id]; update(); })
+        stepBtn("+", "Add one " + item.name, "", function () { change(id, 1); })
       );
-      li.append(info, mk("div", "line-total", money(item.price * q)), qty);
+      var qty = mk("div", "qty");
+      qty.append(stepper, stepBtn("Remove", "Remove " + item.name + " from cart", "remove", function () { delete cart[id]; update(); }));
+      info.append(mk("div", "n", item.name), mk("div", "p", money(item.price) + " each"), qty);
+      li.append(thumb, info, mk("div", "line-total", money(item.price * q)));
       list.append(li);
     });
     emptyMsg.hidden = ids.length > 0;
