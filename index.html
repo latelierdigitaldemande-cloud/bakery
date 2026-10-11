@@ -43,13 +43,13 @@
   .menu { padding-top: 64px; }
   .menu h2 { font-size: 50px; line-height: 1.05; letter-spacing: -0.03em; }
   .menu .tagline { margin-top: 10px; max-width: 34ch; color: #9c5a28; font-size: 30px; line-height: 1.35; }
-  .products { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 20px; margin-top: 28px; }
+  .products { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 24px; margin-top: 28px; }
   .product { display: grid; grid-template-columns: 11fr 9fr; overflow: hidden; border-top: 1px solid #1d1511; border-bottom: 1px solid #1d1511; }
 
-  .product img { width: 100%; height: auto; aspect-ratio: 185 / 126; object-fit: cover; }
-  .product div { padding: 12px 0 12px 14px; }
-  .product h3 { font-size: 15px; line-height: 1.25; }
-  .product p { font-size: 15px; }
+  .product img { width: 100%; height: 100%; min-height: 190px; aspect-ratio: 4 / 3; object-fit: cover; }
+  .product div { padding: 18px 0 18px 20px; }
+  .product h3 { font-size: 20px; line-height: 1.25; }
+  .product p { font-size: 18px; }
 
   /* Commande */
   .order { margin-top: 80px; padding: 130px 0; background: #763c1d; color: #fff; text-align: center; }
@@ -97,7 +97,7 @@
   @keyframes bump { 50% { transform: scale(1.35); } }
   button.button { background: none; font-family: inherit; cursor: pointer; }
   .order .button + .button { margin-left: 10px; background: transparent; color: #fff; border-color: #fff; font-weight: 700; }
-  .product .add { display: block; margin-top: 8px; padding: 0; border: 0; background: none; color: #1d1511; font: inherit; font-size: 15px; font-weight: 700; cursor: pointer; }
+  .product .add { display: block; margin-top: 12px; padding: 0; border: 0; background: none; color: #1d1511; font: inherit; font-size: 17px; font-weight: 700; cursor: pointer; }
   .product .add:hover { text-decoration: underline; }
 
   .overlay { position: fixed; inset: 0; z-index: 20; background: rgba(20,12,8,.5); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: opacity .25s; }
