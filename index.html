@@ -102,13 +102,15 @@
 
   .overlay { position: fixed; inset: 0; z-index: 20; background: rgba(20,12,8,.5); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: opacity .25s; }
   .overlay.open { opacity: 1; pointer-events: auto; }
-  .drawer { position: fixed; top: 50%; left: 50%; z-index: 21; display: flex; flex-direction: column; width: min(420px, 100% - 32px); height: min(544px, 74vh); overflow: hidden; border-radius: 22px; background: #fff; box-shadow: 0 24px 70px rgba(0,0,0,.28); opacity: 0; transform: translate(-50%, -46%) scale(.96); visibility: hidden; transition: opacity .22s, transform .22s cubic-bezier(.2,.8,.2,1), visibility .22s; }
-  .drawer.open { opacity: 1; transform: translate(-50%, -50%); visibility: visible; }
-  .drawer-head { display: flex; justify-content: space-between; align-items: center; padding: 20px 22px 12px; }
-  .drawer-head h2 { font-size: 22px; letter-spacing: -0.03em; }
+  .drawer { position: fixed; inset: 0; z-index: 21; display: flex; flex-direction: column; overflow: hidden; background: #fff; opacity: 0; transform: translateY(14px); visibility: hidden; transition: opacity .22s, transform .22s cubic-bezier(.2,.8,.2,1), visibility .22s; }
+  .drawer.open { opacity: 1; transform: none; visibility: visible; }
+  .drawer-head { flex: 0 0 auto; display: flex; justify-content: space-between; align-items: center; width: min(1100px, 100% - 48px); margin: 0 auto; padding: 22px 0 14px; border-bottom: 1px solid #1d1511; }
+  .drawer-head h2 { font-size: 34px; letter-spacing: -0.03em; }
+  .drawer-main { flex: 1 1 auto; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) 440px; gap: 48px; width: min(1100px, 100% - 48px); margin: 0 auto; }
+  .drawer-main:has(.drawer-foot[hidden]) { grid-template-columns: minmax(0, 1fr); }
   .drawer .close { display: grid; place-items: center; width: 34px; height: 34px; border: 0; border-radius: 50%; background: #f2f0ee; color: #1d1511; font-size: 20px; line-height: 1; cursor: pointer; }
   .drawer .close:hover { background: #e6e2de; }
-  .drawer-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 0 22px; overscroll-behavior: contain; }
+  .drawer-body { min-height: 0; overflow-y: auto; padding: 8px 0 24px; overscroll-behavior: contain; }
   .cart-empty { padding: 40px 0 48px; text-align: center; color: #6b6b6b; }
   .cart-list { margin: 0; padding: 0; list-style: none; }
   .cart-item { display: grid; grid-template-columns: 56px 1fr auto; gap: 0 14px; align-items: start; padding: 14px 0; border-bottom: 1px solid #eee; }
@@ -124,18 +126,30 @@
   .stepper span { min-width: 22px; text-align: center; font-size: 14px; font-weight: 700; }
   .qty .remove { border: 0; background: none; color: #8a8a8a; font: inherit; font-size: 12px; text-decoration: underline; cursor: pointer; }
   .qty .remove:hover { color: #b3261e; }
-  .drawer-foot { flex: 0 0 auto; padding: 14px 22px 18px; border-top: 1px solid #eee; background: #fff; box-shadow: 0 -8px 16px rgba(0,0,0,.05); }
+  .drawer-foot { min-height: 0; overflow-y: auto; padding: 22px 0 24px; }
   .drawer-foot[hidden] { display: none; }
+  .seg { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin: 6px 0 0; padding: 4px; border-radius: 999px; background: #f2f0ee; }
+  .seg label { position: relative; }
+  .seg input { position: absolute; opacity: 0; pointer-events: none; }
+  .seg span { display: block; padding: 11px 8px; border-radius: 999px; text-align: center; font-size: 14px; font-weight: 700; cursor: pointer; }
+  .seg input:checked + span { background: #1d1511; color: #fff; }
+  .seg input:focus-visible + span { outline: 2px solid #1d1511; outline-offset: 2px; }
+  .field.plain input, .field.plain textarea { padding-left: 16px; }
+  .field textarea { display: block; width: 100%; min-height: 76px; margin-top: 6px; padding: 14px 16px; border: 1.5px solid #1d1511; border-radius: 14px; background: #fff; color: #1d1511; font: inherit; font-size: 16px; resize: vertical; }
+  .field textarea:focus { outline: 0; box-shadow: 0 0 0 4px rgba(29,21,17,.12); }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .field[hidden] { display: none; }
   .total { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; color: #6b6b6b; font-size: 15px; }
   .total span:last-child { color: #1d1511; font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
   .field { display: block; margin-bottom: 10px; }
-  @media (max-height: 700px) {
-    .drawer { height: 77vh; }
-    .drawer-head { padding: 12px 22px 6px; }
-    .drawer-foot { padding: 10px 22px 12px; }
-    .total { margin-bottom: 8px; }
-    .field input { padding-top: 10px; padding-bottom: 10px; }
-    .send { padding: 12px; }
+  .send-bar { position: sticky; bottom: 0; padding-top: 8px; background: #fff; }
+  @media (max-width: 1000px) {
+    .drawer-head, .drawer-main { width: calc(100% - 32px); }
+    .drawer-head h2 { font-size: 26px; }
+    .drawer-main { display: block; overflow-y: auto; overscroll-behavior: contain; }
+    .drawer-body { overflow: visible; padding-bottom: 8px; }
+    .drawer-foot { overflow: visible; padding: 8px 0 0; border-top: 1px solid #eee; }
+    .send-bar { padding-bottom: 16px; }
   }
   .field > span:first-child { display: block; font-size: 12px; font-weight: 700; letter-spacing: .02em; }
   .inp { position: relative; display: block; margin-top: 6px; }
@@ -236,7 +250,7 @@
       <div class="social">
         <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="M13 20v-7h2.4l.4-3H13V8.3c0-.8.3-1.3 1.4-1.3H16V4.3c-.3 0-1.2-.1-2.2-.1C11.6 4.2 10 5.5 10 8v2H7.6v3H10v7z" fill="#fff"/></svg></a>
         <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg></a>
-        <a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M3 21l1.6-4.7A9 9 0 1 1 8 19.6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8.5c.3 2.7 3.3 5.7 6 6l1.2-1.3-2-1-1 .8c-1-.4-1.9-1.3-2.3-2.3l.8-1-1-2z" fill="currentColor"/></svg></a>
+        <a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
       </div>
     </div>
     <div><strong>Address</strong><p>123 Anywhere St. Any City, State, Any Country<br>(123) 456 7890</p></div>
@@ -258,17 +272,28 @@
     <h2 id="drawerTitle">Your cart</h2>
     <button class="close" id="closeCart" type="button" aria-label="Close cart">&times;</button>
   </div>
+  <div class="drawer-main">
   <div class="drawer-body">
     <p class="cart-empty" id="cartEmpty">Your cart is empty. Add something fresh from the menu!</p>
     <ul class="cart-list" id="cartList"></ul>
   </div>
   <form class="drawer-foot" id="orderForm" novalidate hidden>
     <div class="total"><span>Total</span><span id="cartTotal">0 DA</span></div>
+    <div class="field"><span>Order type</span><div class="seg"><label><input type="radio" name="mode" value="Delivery" checked><span>Delivery</span></label><label><input type="radio" name="mode" value="Pickup"><span>Pickup</span></label></div></div>
     <label class="field"><span>Name</span><span class="inp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><input type="text" name="name" autocomplete="name" placeholder="Your name" required></span></label>
     <label class="field"><span>Phone number</span><span class="inp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="Your phone number" required></span></label>
+    <label class="field plain" id="addressField"><span>Delivery address</span><span class="inp"><input type="text" name="address" autocomplete="street-address" placeholder="Street, city"></span></label>
+    <div class="row2">
+      <label class="field plain"><span>Date</span><span class="inp"><input type="date" name="date"></span></label>
+      <label class="field plain"><span>Time</span><span class="inp"><input type="time" name="time"></span></label>
+    </div>
+    <label class="field plain"><span>Note (optional)</span><textarea name="note" placeholder="Allergies, message on the cake…"></textarea></label>
+    <div class="send-bar">
     <p class="form-error" id="formError" role="alert"></p>
-    <button class="send" type="submit"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21l1.6-4.7A9 9 0 1 1 8 19.6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8.5c.3 2.7 3.3 5.7 6 6l1.2-1.3-2-1-1 .8c-1-.4-1.9-1.3-2.3-2.3l.8-1-1-2z" fill="currentColor"/></svg><span>Send order on WhatsApp</span></button>
+    <button class="send" type="submit"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg><span>Send order on WhatsApp</span></button>
+    </div>
   </form>
+  </div>
 </aside>
 
 <script>
@@ -345,19 +370,41 @@
     update();
   }
 
-  function openCart() {
+  /* Page panier : l'adresse #panier affiche le panier, le bouton retour le ferme */
+  var pushed = false;
+  function showCart() {
+    if (drawer.classList.contains("open")) return;
     lastFocus = document.activeElement;
     drawer.classList.add("open"); overlay.classList.add("open");
     drawer.setAttribute("aria-hidden", "false");
     document.body.classList.add("lock");
     $("closeCart").focus();
   }
-  function closeCart() {
+  function hideCart() {
+    if (!drawer.classList.contains("open")) return;
     drawer.classList.remove("open"); overlay.classList.remove("open");
     drawer.setAttribute("aria-hidden", "true");
     document.body.classList.remove("lock");
     if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
+  function openCart() {
+    if (location.hash !== "#panier") {
+      try { history.pushState(null, "", "#panier"); pushed = true; } catch (e) {}
+    }
+    showCart();
+  }
+  function closeCart() {
+    if (location.hash === "#panier") {
+      try {
+        if (pushed) { pushed = false; history.back(); return; }
+        history.replaceState(null, "", location.pathname + location.search);
+      } catch (e) {}
+    }
+    hideCart();
+  }
+  function syncCart() { if (location.hash === "#panier") showCart(); else hideCart(); }
+  window.addEventListener("popstate", syncCart);
+  window.addEventListener("hashchange", syncCart);
   cartBtn.addEventListener("click", openCart);
   $("closeCart").addEventListener("click", closeCart);
   overlay.addEventListener("click", closeCart);
@@ -375,15 +422,23 @@
     setTimeout(function () { btn.classList.remove("done"); btn.textContent = "Add +"; }, 900);
   });
 
+  var addressField = $("addressField");
+  form.addEventListener("change", function (e) {
+    if (e.target.name === "mode") addressField.hidden = e.target.value === "Pickup";
+  });
+
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     var f = form.elements;
     var name = f.name.value.trim(), phone = f.phone.value.trim();
     var digits = phone.replace(/\D/g, "");
+    var mode = f.mode.value, address = f.address.value.trim();
+    var date = f.date.value, time = f.time.value, note = f.note.value.trim();
     var err = "";
     if (!Object.keys(cart).length) err = "Your cart is empty.";
     else if (!name) err = "Please enter your name.";
     else if (digits.length < 8 || digits.length > 15) err = "Please enter a valid phone number.";
+    else if (mode === "Delivery" && !address) err = "Please enter your delivery address.";
     errEl.textContent = err;
     if (err) return;
 
@@ -395,13 +450,17 @@
     });
     var msg = "Hello Fresh Bakery! I'd like to place an order:\n\n" +
       lines.join("\n") + "\n\nTotal: " + money(total) + "\n\n" +
-      "Name: " + name + "\nPhone: " + phone;
+      "Name: " + name + "\nPhone: " + phone + "\nType: " + mode +
+      (mode === "Delivery" ? "\nAddress: " + address : "") +
+      (date ? "\nDate: " + date : "") + (time ? "\nTime: " + time : "") +
+      (note ? "\nNote: " + note : "");
     var url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg);
     var w = window.open(url, "_blank");
     if (w) { w.opener = null; } else { window.location.href = url; }
   });
 
   render();
+  syncCart();
 })();
 </script>
 </body>
