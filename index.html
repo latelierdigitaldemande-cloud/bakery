@@ -102,7 +102,7 @@
 
   .overlay { position: fixed; inset: 0; z-index: 20; background: rgba(20,12,8,.5); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: opacity .25s; }
   .overlay.open { opacity: 1; pointer-events: auto; }
-  .drawer { position: fixed; top: 50%; left: 50%; z-index: 21; display: flex; flex-direction: column; width: min(420px, 100% - 32px); height: min(680px, 92vh); overflow: hidden; border-radius: 22px; background: #fff; box-shadow: 0 24px 70px rgba(0,0,0,.28); opacity: 0; transform: translate(-50%, -46%) scale(.96); visibility: hidden; transition: opacity .22s, transform .22s cubic-bezier(.2,.8,.2,1), visibility .22s; }
+  .drawer { position: fixed; top: 50%; left: 50%; z-index: 21; display: flex; flex-direction: column; width: min(420px, 100% - 32px); height: min(544px, 74vh); overflow: hidden; border-radius: 22px; background: #fff; box-shadow: 0 24px 70px rgba(0,0,0,.28); opacity: 0; transform: translate(-50%, -46%) scale(.96); visibility: hidden; transition: opacity .22s, transform .22s cubic-bezier(.2,.8,.2,1), visibility .22s; }
   .drawer.open { opacity: 1; transform: translate(-50%, -50%); visibility: visible; }
   .drawer-head { display: flex; justify-content: space-between; align-items: center; padding: 20px 22px 12px; }
   .drawer-head h2 { font-size: 22px; letter-spacing: -0.03em; }
@@ -130,7 +130,7 @@
   .total span:last-child { color: #1d1511; font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
   .field { display: block; margin-bottom: 10px; }
   @media (max-height: 700px) {
-    .drawer { height: 96vh; }
+    .drawer { height: 77vh; }
     .drawer-head { padding: 12px 22px 6px; }
     .drawer-foot { padding: 10px 22px 12px; }
     .total { margin-bottom: 8px; }
