@@ -52,21 +52,25 @@
   .product p { font-size: 15px; }
 
   /* Commande */
-  .order { margin-top: 80px; padding: 72px 0; background: #6c3f22; color: #fff; text-align: center; }
+  .order { margin-top: 80px; padding: 130px 0; background: #763c1d; color: #fff; text-align: center; }
   .order h2 { font-size: 46px; letter-spacing: -0.03em; }
-  .order p { max-width: 40ch; margin: 14px auto 0; }
+  .order p { max-width: 40ch; margin: 14px auto 0; font-size: 20px; }
   .order .phone { margin-top: 14px; font-size: 14px; opacity: .9; }
-  .order .button { margin-top: 28px; background: #fff; color: #000; border-color: #fff; font-weight: 700; }
+  .order .button { margin-top: 28px; padding-left: 72px; padding-right: 72px; background: #fff; color: #000; border-color: #fff; font-weight: 700; }
 
   /* Pied de page */
   .footer img { width: 100%; height: 400px; margin: 48px 0 28px; object-fit: cover; }
   .footer-info { display: flex; justify-content: space-between; gap: 24px 48px; padding: 24px 0 40px; border-top: 1px solid #1d1511; }
   .footer-info strong.name { font-size: 2.4rem; line-height: 1; text-transform: uppercase; letter-spacing: -0.03em; }
-  .footer-info p { font-size: 14px; color: #6a5a4f; }
+  .footer-info p { font-size: 14px; color: #1d1511; }
   .social { display: flex; gap: 12px; margin-top: 28px; }
   /* Comme sur le modèle : le nom à gauche, Address et Email us en deux colonnes à droite */
   .brand-block { flex: 1 1 auto; }
   .footer-info > div:not(.brand-block) { flex: 0 0 auto; width: 240px; }
+  .legal { background: #000; padding: 18px 0; }
+  .legal .wrap { display: flex; flex-wrap: wrap; gap: 8px 28px; }
+  .legal a { color: #fff; font-size: 13px; text-decoration: none; }
+  .legal a:hover { text-decoration: underline; }
   .social a { display: block; width: 22px; height: 22px; color: #1d1511; }
   .social svg { display: block; width: 100%; height: 100%; }
 
@@ -75,6 +79,7 @@
     .products { grid-template-columns: 1fr; }
     .hero { min-height: 480px; }
     .hero-text { padding-bottom: 48px; }
+    .order { margin-top: 56px; padding: 64px 0; }
     .welcome img, .footer img { height: 150px; }
     .footer-info { flex-direction: column; }
     .brand-block { display: contents; }
@@ -93,8 +98,8 @@
   @keyframes bump { 50% { transform: scale(1.35); } }
   button.button { background: none; font-family: inherit; cursor: pointer; }
   .order .button + .button { margin-left: 10px; background: transparent; color: #fff; border-color: #fff; font-weight: 700; }
-  .product .add { margin-top: 8px; padding: 6px 14px; border: 1.5px solid #6c3f22; border-radius: 999px; background: #fff; color: #6c3f22; font: inherit; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; cursor: pointer; }
-  .product .add:hover, .product .add.done { background: #6c3f22; color: #fff; }
+  .product .add { display: block; margin-top: 8px; padding: 0; border: 0; background: none; color: #1d1511; font: inherit; font-size: 15px; font-weight: 700; cursor: pointer; }
+  .product .add:hover { text-decoration: underline; }
 
   .overlay { position: fixed; inset: 0; z-index: 20; background: rgba(0,0,0,.45); opacity: 0; pointer-events: none; transition: opacity .25s; }
   .overlay.open { opacity: 1; pointer-events: auto; }
@@ -160,10 +165,10 @@
   <h2>Breads</h2>
   <p class="tagline">Crusty, soft, and soulful</p>
   <div class="products">
-    <article class="product" data-id="sourdough" data-name="Sourdough" data-price="1150"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Sourdough"><div><h3>Sourdough</h3><p class="price">1 150 DA</p><button class="add" type="button">Add to cart</button></div></article>
-    <article class="product" data-id="baguette" data-name="Baguette" data-price="750"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Baguette"><div><h3>Baguette</h3><p class="price">750 DA</p><button class="add" type="button">Add to cart</button></div></article>
-    <article class="product" data-id="wheat-loaf" data-name="Wheat Loaf" data-price="800"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Wheat Loaf"><div><h3>Wheat Loaf</h3><p class="price">800 DA</p><button class="add" type="button">Add to cart</button></div></article>
-    <article class="product" data-id="brioche-loaf" data-name="Brioche Loaf" data-price="1000"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Brioche Loaf"><div><h3>Brioche Loaf</h3><p class="price">1 000 DA</p><button class="add" type="button">Add to cart</button></div></article>
+    <article class="product" data-id="sourdough" data-name="Sourdough" data-price="1150"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Sourdough"><div><h3>Sourdough</h3><p class="price">1 150 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
+    <article class="product" data-id="baguette" data-name="Baguette" data-price="750"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Baguette"><div><h3>Baguette</h3><p class="price">750 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
+    <article class="product" data-id="wheat-loaf" data-name="Wheat Loaf" data-price="800"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Wheat Loaf"><div><h3>Wheat Loaf</h3><p class="price">800 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
+    <article class="product" data-id="brioche-loaf" data-name="Brioche Loaf" data-price="1000"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Brioche Loaf"><div><h3>Brioche Loaf</h3><p class="price">1 000 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
   </div>
 </section>
 
@@ -172,10 +177,10 @@
   <h2>Cookies</h2>
   <p class="tagline">Buttery, chewy, and always oven-fresh</p>
   <div class="products">
-    <article class="product" data-id="chocolate-chip" data-name="Chocolate Chip" data-price="400"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Chocolate Chip"><div><h3>Chocolate Chip</h3><p class="price">400 DA</p><button class="add" type="button">Add to cart</button></div></article>
-    <article class="product" data-id="chocolate-fudge" data-name="Chocolate Fudge" data-price="450"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Chocolate Fudge"><div><h3>Chocolate Fudge</h3><p class="price">450 DA</p><button class="add" type="button">Add to cart</button></div></article>
-    <article class="product" data-id="oatmeal-raisin" data-name="Oatmeal Raisin" data-price="350"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Oatmeal Raisin"><div><h3>Oatmeal Raisin</h3><p class="price">350 DA</p><button class="add" type="button">Add to cart</button></div></article>
-    <article class="product" data-id="cookie-box" data-name="Cookie Box" data-price="2400"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Cookie Box"><div><h3>Cookie Box</h3><p class="price">2 400 DA</p><button class="add" type="button">Add to cart</button></div></article>
+    <article class="product" data-id="chocolate-chip" data-name="Chocolate Chip" data-price="400"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Chocolate Chip"><div><h3>Chocolate Chip</h3><p class="price">400 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
+    <article class="product" data-id="chocolate-fudge" data-name="Chocolate Fudge" data-price="450"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Chocolate Fudge"><div><h3>Chocolate Fudge</h3><p class="price">450 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
+    <article class="product" data-id="oatmeal-raisin" data-name="Oatmeal Raisin" data-price="350"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Oatmeal Raisin"><div><h3>Oatmeal Raisin</h3><p class="price">350 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
+    <article class="product" data-id="cookie-box" data-name="Cookie Box" data-price="2400"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Cookie Box"><div><h3>Cookie Box</h3><p class="price">2 400 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
   </div>
 </section>
 
@@ -184,10 +189,10 @@
   <h2>Pastries</h2>
   <p class="tagline">Delicate layers, rich fillings, and a perfect golden finish</p>
   <div class="products">
-    <article class="product" data-id="butter-croissant" data-name="Butter Croissant" data-price="550"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Butter Croissant"><div><h3>Butter Croissant</h3><p class="price">550 DA</p><button class="add" type="button">Add to cart</button></div></article>
-    <article class="product" data-id="fruit-danish" data-name="Fruit Danish" data-price="650"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Fruit Danish"><div><h3>Fruit Danish</h3><p class="price">650 DA</p><button class="add" type="button">Add to cart</button></div></article>
-    <article class="product" data-id="cinnamon-swirl" data-name="Cinnamon Swirl" data-price="650"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Cinnamon Swirl"><div><h3>Cinnamon Swirl</h3><p class="price">650 DA</p><button class="add" type="button">Add to cart</button></div></article>
-    <article class="product" data-id="pain-au-chocolat" data-name="Pain Au Chocolat" data-price="700"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Pain Au Chocolat"><div><h3>Pain Au Chocolat</h3><p class="price">700 DA</p><button class="add" type="button">Add to cart</button></div></article>
+    <article class="product" data-id="butter-croissant" data-name="Butter Croissant" data-price="550"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Butter Croissant"><div><h3>Butter Croissant</h3><p class="price">550 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
+    <article class="product" data-id="fruit-danish" data-name="Fruit Danish" data-price="650"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Fruit Danish"><div><h3>Fruit Danish</h3><p class="price">650 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
+    <article class="product" data-id="cinnamon-swirl" data-name="Cinnamon Swirl" data-price="650"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Cinnamon Swirl"><div><h3>Cinnamon Swirl</h3><p class="price">650 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
+    <article class="product" data-id="pain-au-chocolat" data-name="Pain Au Chocolat" data-price="700"><img src="https://i.ibb.co/hJ8pFLXh/4fd0f5bc6030a03b1de09968e8c1f6d6.jpg" alt="Pain Au Chocolat"><div><h3>Pain Au Chocolat</h3><p class="price">700 DA</p><button class="add" type="button" aria-label="Add to cart">Add +</button></div></article>
   </div>
 </section>
 
@@ -218,6 +223,14 @@
     <div><strong>Email us</strong><p>freshbakery@reallygreatsite.com</p></div>
   </div>
 </footer>
+
+<!-- Barre légale : remplacez les "#" par vos vraies pages -->
+<nav class="legal" aria-label="Legal">
+  <div class="wrap">
+    <a href="#">Terms &amp; Conditions</a>
+    <a href="#">Privacy Policy</a>
+  </div>
+</nav>
 
 <div class="overlay" id="overlay"></div>
 <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" aria-hidden="true">
@@ -337,8 +350,8 @@
     cart[id] = Math.min((cart[id] || 0) + 1, 99);
     update();
     badge.classList.remove("bump"); void badge.offsetWidth; badge.classList.add("bump");
-    btn.classList.add("done"); btn.textContent = "Added \u2713";
-    setTimeout(function () { btn.classList.remove("done"); btn.textContent = "Add to cart"; }, 900);
+    btn.classList.add("done"); btn.textContent = "Add \u2713";
+    setTimeout(function () { btn.classList.remove("done"); btn.textContent = "Add +"; }, 900);
   });
 
   form.addEventListener("submit", function (e) {
